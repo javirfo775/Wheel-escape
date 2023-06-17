@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var nombre = document.getElementById('nombre').value;
     var email = document.getElementById('email').value;
-    var tel=document.getElementById('telefono').value;
     var password = document.getElementById('password').value;
     var confirmPassword = document.getElementById('confirm-password').value;
 

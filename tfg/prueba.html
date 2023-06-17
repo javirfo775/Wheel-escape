@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>Wheel Scape Web</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div id="authForm">
+            <form action="#">
+
+                Inserte email: <input type="email" id="userEmail"><br>
+                Inserte password: <input type="password" id="userPassword"><br>
+
+                <input type="submit" id="singUpButton" value="Singup">
+                <input type="submit" id="singInButton" value="Singin">
+            </form>
+        </div>
+    </body>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import {
+            //imports from firebase authentification->
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            onAuthStateChanged,
+            signOut
+            //Update the below URL with the appropriate version if necessary.
+        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAjrrB_IyyIi76JVx0sGlaw1NgRmW1qbXM",
+          authDomain: "wheel-scape.firebaseapp.com",
+          projectId: "wheel-scape",
+          storageBucket: "wheel-scape.appspot.com",
+          messagingSenderId: "233705311657",
+          appId: "1:233705311657:web:5a34c68234f88bd5ae08b8"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth= getAuth(app);
+
+        //registrar
+        //know we are going to save own data->
+        //querySelector("#formID");
+        const userEmail=document.querySelector("#userEmail");
+        const userPassword=document.querySelector("#userPassword");
+        const singUpButton=document.querySelector("#singUpButton");
+        const singInButton=document.querySelector("#singInButton");
+
+
+        const userSingUp=async()=>{
+            const singUpEmail= userEmail.value;
+            const singUpPassword= userPassword.value;
+            createUserWithEmailAndPassword(auth, singUpEmail, singUpPassword).then((userCredential)=>{
+                const user= userCredential.user;
+                console.log(user);
+                alert("Cuenta creada exitosamente!");
+            }).catch((error)=>{
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode + errorMessage)
+                alert(errorCode + errorMessage);
+            });
+        }
+        //login
+
+        //we are creating a listener for the singUpButton->
+        singUpButton.addEventListener('click', userSingUp);
+
+        const userLogin = async () => {
+        const loginEmail = userEmail.value;
+        const loginPassword = userPassword.value;
+        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+                alert("Inicio de sesión exitoso!");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode + errorMessage);
+                alert("Error: " + errorMessage);
+            });
+        };
+
+        // Agregar un listener al evento de clic del botón de inicio de sesión
+        singInButton.addEventListener('click', userLogin);
+      </script>
+</html>

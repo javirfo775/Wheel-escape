@@ -49,8 +49,8 @@
         const auth= getAuth(app);
 
         const userLogin = async () => {
-        const loginEmail = userEmail.value;
-        const loginPassword = userPassword.value;
+        const loginEmail = email.value;
+        const loginPassword = password.value;
         signInWithEmailAndPassword(auth, loginEmail, loginPassword)
             .then((userCredential) => {
                 const user = userCredential.user;

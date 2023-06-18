@@ -47,25 +47,33 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth= getAuth(app);
+	const loginForm = document.getElementById("login-form");
+    	const userInfoDiv = document.getElementById("user-info");
 
-        const userLogin = async () => {
-        const loginEmail = email.value;
-        const loginPassword = password.value;
-        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-                alert("Inicio de sesión exitoso!");
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode + errorMessage);
-                alert("Error: " + errorMessage);
-            });
-        };
+        loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const loginEmail = loginForm.email.value;
+        const loginPassword = loginForm.password.value;
 
-        // Agregar un listener al evento de clic del botón de inicio de sesión
-        singInButton.addEventListener('click', userLogin);
+      signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; // Mostrar el nombre de usuario en el div "user-info"
+          window.location.href = "index.html"; // Redirigir al archivo index.html después del inicio de sesión exitoso
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          alert("Error: " + errorMessage);
+        });
+    });
+
+    // Comprobar si el usuario ya ha iniciado sesión al cargar la página
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; // Mostrar el nombre de usuario en el div "user-info"
+      }
+    });
       </script>
 </html>

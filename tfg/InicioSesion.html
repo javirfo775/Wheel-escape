@@ -62,7 +62,7 @@
             .then((userCredential) => {
                 const user = userCredential.user;
                 console.log(user);
-                alert("Bienvenido " + user.displayName + "!");
+                alert("Bienvenido " + user.email + "!");
             })
             .catch((error) => {
                 const errorCode = error.code;

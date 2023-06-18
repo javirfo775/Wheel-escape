@@ -27,8 +27,5 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Si todas las validaciones pasan, puedes realizar alguna acción adicional aquí, como enviar el formulario.
-    alert('Inicio de sesión exitoso!');
-    form.reset();
   });
 });

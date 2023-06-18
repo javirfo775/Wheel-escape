@@ -63,7 +63,7 @@
                 const user = userCredential.user;
                 console.log(user);
                 alert("Bienvenido " + user.email + "!");
-		document.getElementById("user-info").textContent=user.email;
+		localStorage.setItem("useremail", user.email);
             })
             .catch((error) => {
                 const errorCode = error.code;

@@ -55,24 +55,24 @@
         const loginEmail = loginForm.email.value;
         const loginPassword = loginForm.password.value;
 
-      signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; // Mostrar el nombre de usuario en el div "user-info"
-          window.location.href = "index.html"; // Redirigir al archivo index.html después del inicio de sesión exitoso
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          alert("Error: " + errorMessage);
-        });
-    });
+        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
+          .then((userCredential) => {
+           const user = userCredential.user;
+           userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; 
+           loginForm.reset(); 
+         })
+         .catch((error) => {
+           const errorCode = error.code;
+           const errorMessage = error.message;
+           console.log(errorCode, errorMessage);
+           alert("Error: " + errorMessage);
+         });
+     });
 
-    // Comprobar si el usuario ya ha iniciado sesión al cargar la página
+    
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; // Mostrar el nombre de usuario en el div "user-info"
+        userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; 
       }
     });
       </script>

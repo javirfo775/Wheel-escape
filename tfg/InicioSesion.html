@@ -17,63 +17,7 @@
 
 			<button type="submit">Iniciar sesión</button>
 		</form>
-	</div>	
+	</div>
+	<script type="module" src="login.js"></script>
 </body>
-	 <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-        import {
-            //imports from firebase authentification->
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            onAuthStateChanged,
-            signOut
-            //Update the below URL with the appropriate version if necessary.
-        } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyAjrrB_IyyIi76JVx0sGlaw1NgRmW1qbXM",
-          authDomain: "wheel-scape.firebaseapp.com",
-          projectId: "wheel-scape",
-          storageBucket: "wheel-scape.appspot.com",
-          messagingSenderId: "233705311657",
-          appId: "1:233705311657:web:5a34c68234f88bd5ae08b8"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth= getAuth(app);
-	const loginForm = document.getElementById("login-form");
-    	const userInfoDiv = document.getElementById("user-info");
-
-        loginForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const loginEmail = loginForm.email.value;
-        const loginPassword = loginForm.password.value;
-
-        signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-          .then((userCredential) => {
-           const user = userCredential.user;
-           userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; 
-           loginForm.reset(); 
-         })
-         .catch((error) => {
-           const errorCode = error.code;
-           const errorMessage = error.message;
-           console.log(errorCode, errorMessage);
-           alert("Error: " + errorMessage);
-         });
-     });
-
-    
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userInfoDiv.innerText = `Bienvenido, ${user.displayName}`; 
-      }
-    });
-      </script>
 </html>
